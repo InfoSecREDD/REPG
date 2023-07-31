@@ -1,0 +1,21 @@
+REM Allows Execution of PS(PowerShell) Scripts on Windows 11 that natively blocks execution.
+
+REM Uncomment the line below for DuckyScript Devices.
+REM DUCKY_LANG US
+DELAY 2000
+GUI r
+DELAY 200
+STRING powershell
+DELAY 500
+ENTER
+DELAY 500
+STRING Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+DELAY 500
+ENTER
+DELAY 500
+STRING A
+DELAY 500
+ENTER
+DELAY 200
+STRING exit
+ENTER
