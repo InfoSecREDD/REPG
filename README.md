@@ -6,7 +6,7 @@ others more ideas on what can and could be possible.
 ## Instructions
 - Download the [latest release](https://github.com/InfoSecREDD/REPG/releases) of this Repo.
 - Unzip the file into the folder of choice.
-- Place desired PS1(PowerShell) file in the same folder. 
+- Place desired Powershell file(s) in the same folder. 
 - Use the syntax for the device and PowerShell script you want.
 - Transfer "payload.txt" to BadUSB/DuckyScript Device of your choice.
 - Run the payload.txt.
