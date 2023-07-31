@@ -1,7 +1,7 @@
 # Title: REDD's Encoded Payload Generator
 # Description: Creates a encrypted Payload for BadUSB/Duckyscript Devices.
 # AUTHOR: InfoSecREDD
-# Version: 1.4
+# Version: 1.4.1
 $path = split-path -parent $MyInvocation.MyCommand.Definition
 $script = $MyInvocation.MyCommand.Name
 $payload_filename = "payload.txt"
