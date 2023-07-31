@@ -1,7 +1,7 @@
 # Title: REDD's Encoded Payload Generator
 # Description: Creates a encrypted Payload for BadUSB/Duckyscript Devices.
 # AUTHOR: InfoSecREDD
-# Version: 1.2
+# Version: 1.3
 $path = split-path -parent $MyInvocation.MyCommand.Definition
 $payload_filename = "payload.txt"
 $payload_file = "$path\$payload_filename"
@@ -14,12 +14,26 @@ if ( 0 -eq $argcheck )
   Write-Host "`nERROR: No arguments supplied to encode.`n`nSyntax: encode.ps1 `<File_to_Encode`>`n`n"
   exit
 }
+if (Test-Path $temp_file) {
+  Remove-Item $temp_file >$null 2>&1
+}
 if ( 1 -eq $argcheck )
 {
-  certutil -encodehex -f $args $temp_file 0x40000001 >$null 2>&1
+  if (Test-Path $path\$args) {
+     certutil -encodehex -f $args $temp_file 0x40000001 >$null 2>&1
+  }
+  else {
+     Write-Host "`nERROR: No file named $args in $path.`n`n"
+     exit
+  }
 }
 elseif ( 2 -ge $argcheck ) 
 {
+  $showfile = $args[0]
+  if (!(Test-Path $path\$showfile)) {
+     Write-Host "`nERROR: No file named $showfile in $path.`n`n"
+     exit
+  }
   if ( $args[1] -eq "-flipper" )
   {
      Write-Host "Creating $payload_filename for Flipper Zero BadUSB Compatiblity."
