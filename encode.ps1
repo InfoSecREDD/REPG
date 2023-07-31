@@ -3,6 +3,7 @@
 # AUTHOR: InfoSecREDD
 # Version: 1.4
 $path = split-path -parent $MyInvocation.MyCommand.Definition
+$script = $MyInvocation.MyCommand.Name
 $payload_filename = "payload.txt"
 $payload_file = "$path\$payload_filename"
 $temp_file = "$path\temp.txt"
@@ -11,7 +12,7 @@ $flipper = 0
 Write-Host "`n`n   :::::::::  :::::::::: :::::::::  :::::::::  ::: ::::::::  `n   :+:    :+: :+:        :+:    :+: :+:    :+: :+ :+:    :+: `n   +:+    +:+ +:+        +:+    +:+ +:+    +:+    +:+        `n   +#++:++#:  +#++:++#   +#+    +:+ +#+    +:+    +#++:++#++ `n   +#+    +#+ +#+        +#+    +#+ +#+    +#+           +#+ `n   #+#    #+# #+#        #+#    #+# #+#    #+#    #+#    #+# `n   ###    ### ########## #########  #########      ######## `n`n              REDD's Encrypted Payload Generator`n"
 if ( 0 -eq $argcheck )
 {
-  Write-Host "`nERROR: No arguments supplied to encode.`n`nSyntax: encode.ps1 `<File_to_Encode`>`n        encode.ps1 `<File_to_Encode`> -flipper`n`n"
+  Write-Host "`nERROR: No arguments supplied to encode.`n`nSyntax: $script `<File_to_Encode`>`n        $script `<File_to_Encode`> -flipper`n`n"
   exit
 }
 if (Test-Path "$temp_file") {
