@@ -1,7 +1,7 @@
 # Title: REDD's Encoded Payload Generator
 # Description: Creates a encrypted Payload for BadUSB/Duckyscript Devices.
 # AUTHOR: InfoSecREDD
-# Version: 1.4.6
+# Version: 1.5
 $path = split-path -parent $MyInvocation.MyCommand.Definition
 $script = $MyInvocation.MyCommand.Name
 $payload_filename = "gen_payload.tmp"
@@ -10,6 +10,7 @@ $temp_file = "$path\temp.txt"
 $final_file = "$path\payload.txt"
 $argcheck = $args.Count
 $flipper = 0
+$IsFullPath = 0
 Write-Host "`n`n   :::::::::  :::::::::: :::::::::  :::::::::  ::: ::::::::  `n   :+:    :+: :+:        :+:    :+: :+:    :+: :+ :+:    :+: `n   +:+    +:+ +:+        +:+    +:+ +:+    +:+    +:+        `n   +#++:++#:  +#++:++#   +#+    +:+ +#+    +:+    +#++:++#++ `n   +#+    +#+ +#+        +#+    +#+ +#+    +#+           +#+ `n   #+#    #+# #+#        #+#    #+# #+#    #+#    #+#    #+# `n   ###    ### ########## #########  #########      ######## `n`n              REDD's Encrypted Payload Generator`n"
 if ( 0 -eq $argcheck )
 {
@@ -21,7 +22,13 @@ if (Test-Path "$temp_file") {
 }
 if ( 1 -eq $argcheck )
 {
-  if (Test-Path "$path\$args") {
+  $argpath = Get-ChildItem "$args" | Select-Object -ExpandProperty FullName
+  if ("$args" -eq "$argpath") {
+     if (Test-Path "$args")  {
+        certutil -encodehex -f "$argpath" "$temp_file" 0x40000001 >$null 2>&1
+     }
+  }
+  elseif (Test-Path "$path\$args")  {
      certutil -encodehex -f "$path\$args" "$temp_file" 0x40000001 >$null 2>&1
   }
   else {
@@ -32,15 +39,21 @@ if ( 1 -eq $argcheck )
 elseif ( 2 -ge $argcheck ) 
 {
   $showfile = $args[0]
-  if (!(Test-Path "$path\$showfile")) {
-     Write-Host "`nERROR: No file named $showfile in $path.`n`n"
-     exit
+  $argpath = Get-ChildItem $showfile | Select-Object -ExpandProperty FullName
+  if ("$showfile" -eq "$argpath") {
+	$IsFullPath = 1
   }
-  if ( $args[1] -eq "-flipper" )
+  if ("$IsFullPath" -ne "1") {
+     if (!(Test-Path "$path\$showfile")) {
+        Write-Host "`nERROR: No file named $showfile in $path.`n`n"
+        exit
+     }
+  }
+  if ( $args[1] -eq "-flipper" -Or $args[1] -eq "-badusb" )
   {
      Write-Host "Creating $payload_filename for Flipper Zero BadUSB Compatiblity."
      $flipper = 1
-     certutil -encodehex -f "$path\$showfile" "$temp_file" 0x40000001 >$null 2>&1
+     certutil -encodehex -f "$argpath" "$temp_file" 0x40000001 >$null 2>&1
   } 
   else {
 	 $showargs = $args[1]
