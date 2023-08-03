@@ -12,14 +12,23 @@ others more ideas on what can and could be possible.
 - Run the payload.txt.
 - Enjoy!
 
-## Syntax
-For OMG/Hak5/Other OFFICIAL DuckyScript devices*:
+# Syntax
+## For OMG/Hak5/Other OFFICIAL DuckyScript devices*:
 
 ```PS> .\encode.ps1 helloworld.ps1```
 
-For Flipper Zero/BadUSB devices*:
+  OR
+
+Drag and Drop ``helloworld.ps1`` onto ``DragNDropHERE-Hak5.cmd``.
+
+## For Flipper Zero/BadUSB devices*:
 
 ```PS> .\encode.ps1 helloworld.ps1 -flipper```
+
+  OR
+
+Drag and Drop ``helloworld.ps1`` onto ``DragNDropHERE-Flipper.cmd``.
+
 
 Notice:  * = This is just a example syntax using the provided "helloworld.ps1" in this repo.
 
