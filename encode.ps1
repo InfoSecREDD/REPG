@@ -51,7 +51,7 @@ elseif ( 2 -ge $argcheck )
   }
   if ( $args[1] -eq "-flipper" -Or $args[1] -eq "-badusb" )
   {
-     Write-Host "Creating $payload_filename for Flipper Zero BadUSB Compatiblity."
+     Write-Host "Creating $payload_filename for Flipper Zero/BadUSB Compatiblity."
      $flipper = 1
      certutil -encodehex -f "$argpath" "$temp_file" 0x40000001 >$null 2>&1
   } 
@@ -88,7 +88,7 @@ if ( 1 -ne $flipper )
 }
 else
 {
-  Write-Host "--> Skipping DUCKY_LANG String for Flipper Compatibility."
+  Write-Host "--> Skipping DUCKY_LANG String for Flipper Zero/BadUSB Compatibility."
 }
 "DELAY 2000" | Out-File -FilePath "$payload_file" -Append
 "GUI r" | Out-File -FilePath "$payload_file" -Append
