@@ -1,5 +1,5 @@
 # REPG (REDD's Encrypted Payload Generator)
-This is a simple project aimed at making other people's PowerShell script be easily converted
+This is a simple project aimed at making other people's PowerShell scripts AND Python scripts be easily converted
 for everyone to use. - While throwing a bit of Base64 and certutil commands in there to give 
 others more ideas on what can and could be possible.
 
