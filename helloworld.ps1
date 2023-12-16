@@ -1,6 +1,6 @@
 Write-Host "Hello World!"
 $test = "This is just a demo script.`nTesting Escape Characters."
-function demo-function {
+function test-function {
   Write-Host "$test"
 }
-demo-function
+test-function
